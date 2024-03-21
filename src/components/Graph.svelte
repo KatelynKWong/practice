@@ -13,8 +13,9 @@
   const titleImage = earthquakeClipart;
 
   // Create tweened variables for intro block
-  const tweenedTitleY = tweened(-100);
-  const tweenedSubtitleY = tweened(-100);
+  const tweenedTitleY = tweened(height * 1 / 5);
+  const tweenedTitleOpacity = tweened(1)
+  const tweenedSubtitleY = tweened(height * 1 / 3.5);
   const tweenedTitleImageOpacity = tweened(0);
 
   let previousIndex = 0;
@@ -22,32 +23,18 @@
   // Intro block animations
   $: {
     // reset positions when we are at top
-    if (index === 0) {
-      tweenedTitleY.set(-20);
-      tweenedSubtitleY.set(-20);
-      tweenedTitleImageOpacity.set(1);
-    }
-
-    // title animation
-    if (index == 1 && previousIndex == 0) {
-      tweenedTitleY.set(height * 1 / 5);
-      tweenedSubtitleY.set(height * 1 / 3.5);
-    } else if (index == 0 && previousIndex == 1) {
-      tweenedTitleY.set(-100);
-      tweenedSubtitleY.set(-100);
-    }
-
-    // background and title disappear
-    else if (index == 4 && previousIndex == 3) {
-      tweenedTitleY.set(-100);
-      tweenedSubtitleY.set(-100);
-      tweenedTitleImageOpacity.set(0);
-    } else if (index == 3 && previousIndex == 4) {
+    if (index === 0 || index === 1) {
+      tweenedTitleOpacity.set(1)
       tweenedTitleY.set(height * 1 / 5);
       tweenedSubtitleY.set(height * 1 / 3.5);
       tweenedTitleImageOpacity.set(1);
     }
-
+    if (index === 2) {
+      tweenedTitleOpacity.set(0)
+      tweenedTitleY.set(-100);
+      tweenedSubtitleY.set(-100);
+    }
+  
     previousIndex = index;
   }
 
@@ -228,21 +215,22 @@
   />
 
   <!-- Text layers -->
+  <text class='title'
+  x={30}
+  y={$tweenedTitleY}
+  opacity={$tweenedTitleOpacity}
+  in:fly={{ y: -300, duration: 1000 }}
+  out:fly={{ y: -300, duration: 1000 }}
+>{"Bean There, Brewed That"}</text>
+
+<text class='subtitle'
+  x={30}
+  y={$tweenedSubtitleY}
+  in:fly={{ y: -300, duration: 1000 }}
+  out:fly={{ y: -300, duration: 1000 }}
+>{"A blog documenting the coffee and food journey of a study abroad student"}</text>
   {#if index > 0}
   <!-- intro text -->
-    <text class='title'
-      x={30}
-      y={$tweenedTitleY}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >{"Shifting Ground: Exploring the Fascinating World of Earthquakes"}</text>
-
-    <text class='subtitle'
-      x={30}
-      y={$tweenedSubtitleY}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >{"By Eric Pham, Katelyn Wong, Vanessa Hu"}</text>
    
     <rect class="grey-rectangle"
     width="100%"  

@@ -1,5 +1,7 @@
 <script>
   import Scroller from "@sveltejs/svelte-scroller";
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
   import EarthquakeMap from "./EarthquakeMap.svelte";
   import StaticMap from "./StaticMap.svelte";
   import FaultMap from "./FaultMap.svelte";
@@ -29,9 +31,22 @@
       },
     ],
   };
+  const progressBarOpacity = tweened(0, { duration: 400, easing: cubicOut });
+  $: progressBarOpacity.set(index >= 1 ? 1 : 0); // Adjusted condition to set opacity
+
+  const headerOpacity = tweened(0, { duration: 400, easing: cubicOut });
+  $: headerOpacity.set(index > 1 ? 1 : 0); // Adjusted condition to set opacity
+
 </script>
 
+
 <main>
+  <div class="header" style={`opacity: ${$headerOpacity};`} transition:fade>
+    <h1>Bean There, Brewed That</h1>
+  </div>
+  <div class="scrolling-rectangle1"></div>
+  <div class="scrolling-rectangle2"></div>
+
 <Scroller
   top={0.0}
   bottom={1}
@@ -52,13 +67,9 @@
     <FaultMap bind:geoJsonToFit {index}/>
     <Graph {index} {width} {height} />
 
-    <div class="progress-bars">
-      <p>current section: <strong>{index + 1}/{count}</strong></p>
-      <progress value={count ? (index + 1) / count : 0} />
-      <p></p>
-      <progress value={offset || 0} />
-    
-    </div>
+
+
+
   </div>
 
   <div class="foreground" slot="foreground">
@@ -97,12 +108,54 @@
       style="position: relative; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 999;"
     ></iframe>
 </div>
+<div 
+    class="progress-bars"
+    style={`opacity: ${$progressBarOpacity}; visibility: ${index >= 1 ? 'visible' : 'hidden'}`}
+  >
+    <progress value={offset || 0} />
+  </div>
 </main>
 
 
 <style>
-  .background {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    background-color: rgb(232, 230, 209); /* Optional: Add a background color */
+    z-index: 999; /* Ensure the header stays on top of other elements */
+    text-align: center; /* Center the text horizontally */
+    padding: 1px 0; /* Add padding for better appearance */
+  }
+
+  main {
+    padding-top: 50px; /* Adjust this value to avoid content being hidden under the header */
+    position: relative; /* Ensure proper positioning of absolutely positioned elements */
+  }
+  .scrolling-rectangle1 {
+    position: fixed;
+    top: 0vh;
+    right: 0;
+    width: 33%;
+    height: 60vh;
+    background-color: rgb(97, 130, 88);
+    z-index: 997; /* Ensure the rectangle stays on top of other content */
+    padding: 1px 0
+  }
+  .scrolling-rectangle2 {
+    position: fixed;
+    top: 55vh;
+    right: 0;
+    width: 33%;
+    height: 50vh;
+    background-color: rgb(205, 196, 143);
+    z-index: 997; /* Ensure the rectangle stays on top of other content */
+    padding: 1px 0
+  }
+
+  .background {
+    width: 66%;
     height: 100vh;
     position: relative;
   }
@@ -119,11 +172,11 @@
   }
 
   .progress-bars {
-    position: absolute;
+    position: fixed;
+    top: 10vh;
     background: rgba(153, 153, 153, 0.2) /*  40% opaque */;
-    visibility: visible;
-
-  }
+    visibility: hidden;
+}
 
   section {
     height: 80vh;
