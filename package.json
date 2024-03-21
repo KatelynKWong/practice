@@ -1,0 +1,28 @@
+{
+  "name": "svelte-template",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/adapter-static": "^3.0.1",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "svelte": "^4.2.12",
+    "vite": "^5.0.3"
+  },
+  "type": "module",
+  "dependencies": {
+    "@sveltejs/svelte-scroller": "^2.0.7",
+    "csv-parser": "^3.0.0",
+    "csvtojson": "^2.0.10",
+    "d3": "^7.9.0",
+    "fs": "^0.0.1-security",
+    "mapbox-gl": "^3.2.0",
+    "svelte-scroller": "^1.2.2"
+  }
+}
