@@ -9,7 +9,7 @@
   import Graph from "./Graph.svelte";
   import * as d3 from 'd3'; // Import D3 library
 
-  let count, index, offset, progress;
+  let count, index, offset=0, progress;
   let width, height;
 
   let geoJsonToFit = {
@@ -44,6 +44,12 @@
   <div class="header" style={`opacity: ${$headerOpacity};`} transition:fade>
     <h1>Bean There, Brewed That</h1>
   </div>
+  <div class="title">
+    <h1>Bean There, Brewed That</h1>
+  </div>
+  <div class="subtitle">
+    <h1>A blog documenting the coffee and food journey of a study abroad student.</h1>
+  </div>
   <div class="scrolling-rectangle1"></div>
   <div class="scrolling-rectangle2"></div>
 
@@ -51,6 +57,7 @@
   top={0.0}
   bottom={1}
   threshold={0.5}
+  initialPosition={0}
   bind:count
   bind:index
   bind:offset
@@ -73,7 +80,7 @@
   </div>
 
   <div class="foreground" slot="foreground">
-    <section></section>
+    <section style="height:20vh"></section>
     <section></section>
     <section></section>
     <section></section>
@@ -128,11 +135,31 @@
     text-align: center; /* Center the text horizontally */
     padding: 1px 0; /* Add padding for better appearance */
   }
-
-  main {
-    padding-top: 50px; /* Adjust this value to avoid content being hidden under the header */
-    position: relative; /* Ensure proper positioning of absolutely positioned elements */
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    position: absolute;
+    color: white;
+    top: 60vh; /* Adjusted position to ensure visibility */
+    left: 4%;
+    width: 100%;
+    padding: 10px;
+    z-index: 999; /* Ensure the title stays above other content */
+    transition: bottom 0.3s; /* Add smooth transition effect */
   }
+  .subtitle {
+    font-size: 10px;
+    font-weight: 500;
+    position: absolute;
+    color: white;
+    top: 70vh; /* Adjusted position to ensure visibility */
+    left: 4%;
+    width: 100%;
+    padding: 10px;
+    z-index: 999; /* Ensure the title stays above other content */
+    transition: bottom 0.3s; /* Add smooth transition effect */
+  }
+
   .scrolling-rectangle1 {
     position: fixed;
     top: 0vh;
@@ -158,13 +185,16 @@
     width: 66%;
     height: 100vh;
     position: relative;
+    z-index: 995;
   }
 
   .foreground {
     width: 50%;
+    top: 0;
     margin: 0 auto;
     height: auto;
     position: relative;
+    z-index: 996;
   }
 
   .progress-bars progress {
@@ -176,6 +206,7 @@
     top: 10vh;
     background: rgba(153, 153, 153, 0.2) /*  40% opaque */;
     visibility: hidden;
+    z-index: 999;
 }
 
   section {

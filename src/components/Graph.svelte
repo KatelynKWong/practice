@@ -2,6 +2,7 @@
   import { fly } from "svelte/transition";
   import { crossfade } from 'svelte/transition';
   import { tweened } from "svelte/motion";
+  import coffeePlant from './assets/coffee-g5e25637ad_1920.webp';
   import earthquakeClipart from './assets/earthquake_image.jpg';
   import sfEarthquake from './assets/sf_earthquake.png';
   import tsunamiImage from './assets/tsunami.jpg';
@@ -10,32 +11,19 @@
   export let index, width, height;
 
   // Define the intro block
-  const titleImage = earthquakeClipart;
-
-  // Create tweened variables for intro block
-  const tweenedTitleY = tweened(height * 1 / 5);
-  const tweenedTitleOpacity = tweened(1)
-  const tweenedSubtitleY = tweened(height * 1 / 3.5);
   const tweenedTitleImageOpacity = tweened(0);
-
-  let previousIndex = 0;
+  const tweenedAboutMeOpacity = tweened(0)
 
   // Intro block animations
   $: {
     // reset positions when we are at top
-    if (index === 0 || index === 1) {
-      tweenedTitleOpacity.set(1)
-      tweenedTitleY.set(height * 1 / 5);
-      tweenedSubtitleY.set(height * 1 / 3.5);
+    if (index === 0) {
       tweenedTitleImageOpacity.set(1);
     }
-    if (index === 2) {
-      tweenedTitleOpacity.set(0)
-      tweenedTitleY.set(-100);
-      tweenedSubtitleY.set(-100);
+    if (index === 1) {
+      tweenedTitleImageOpacity.set(1);
+      tweenedAboutMeOpacity.set(0)
     }
-  
-    previousIndex = index;
   }
 
   // Create tweened variables for background story
@@ -80,8 +68,10 @@
   $: { // background story animations
     if (index === 2) {
       tweenedRectOpacity.set(0)
+      tweenedAboutMeOpacity.set(1)
     }
     if (index === 3) {
+      tweenedAboutMeOpacity.set(0)
       tweenedRectOpacity.set(.5)
       tweenedCloudOpacity.set(0)
       tweenedCloudY.set(height*1.5)
@@ -203,11 +193,11 @@
   }
 
 </script>
-<svg class="graph" width="100%" height="100%">
+<svg class="graph" width="100%" height="100%" y="0">
   <!-- Title image layer with fly transition -->
   <image
     x="0" y="0" width="100%" height="100%"
-    xlink:href={titleImage}
+    xlink:href={coffeePlant}
     opacity={$tweenedTitleImageOpacity}
     in:fly={{ opacity: 1, duration: 1000 }}
     out:fly={{ opacity: 0, duration: 1000 }}
@@ -215,23 +205,37 @@
   />
 
   <!-- Text layers -->
-  <text class='title'
-  x={30}
-  y={$tweenedTitleY}
-  opacity={$tweenedTitleOpacity}
-  in:fly={{ y: -300, duration: 1000 }}
-  out:fly={{ y: -300, duration: 1000 }}
->{"Bean There, Brewed That"}</text>
-
-<text class='subtitle'
-  x={30}
-  y={$tweenedSubtitleY}
-  in:fly={{ y: -300, duration: 1000 }}
-  out:fly={{ y: -300, duration: 1000 }}
->{"A blog documenting the coffee and food journey of a study abroad student"}</text>
   {#if index > 0}
   <!-- intro text -->
-   
+  <rect 
+  width="520" 
+  height="320" 
+  x="20%" 
+  y="35%" 
+  rx="20" 
+  ry="20" 
+  fill="white" 
+  opacity={$tweenedAboutMeOpacity *3/4}
+/>
+
+<text class = "aboutme"
+  x="5%"
+  y="40%"
+  text-anchor="left"
+  opacity={$tweenedAboutMeOpacity}
+  in:fly={{ y: -300, duration: 1000 }}
+  out:fly={{ y: -300, duration: 1000 }}
+>
+  <tspan x="25%" dy="0%">About the author ...</tspan>
+  <tspan x="25%" dy="1.8em">minutes, the aftermath of an earthquake can be felt for</tspan>
+  <tspan x="25%" dy="1.8em">weeks to years globally. Earthquakes can displace people from</tspan>
+  <tspan x="25%" dy="1.8em">their homes and destroy livelihoods in an instant, ultimately</tspan>
+  <tspan x="25%" dy="1.8em">impacting society, the economy, and climate. For example,</tspan>
+  <tspan x="25%" dy="1.8em">the Great East Japan Earthquake in 2011 caused an economic</tspan>
+  <tspan x="25%" dy="1.8em">loss of $360 billion alone. As such, repairing damages</tspan>
+  <tspan x="25%" dy="1.8em">caused by earthquakes can be extremely costly.</tspan>
+</text>
+
     <rect class="grey-rectangle"
     width="100%"  
     height="100%" 
@@ -338,300 +342,8 @@
       out:crossfade={{ duration: 1000 }}
     />
    
-    <rect 
-      width="520" 
-      height="320" 
-      x="50" 
-      y={$tweenedStory4Y - 120} 
-      rx="20" 
-      ry="20" 
-      fill="white" 
-      opacity={$tweenedStory4Opacity *3/4}
-    />
+    
 
-    <text class = 'impactStory2'
-      x="5%"
-      y={$tweenedStory4Y}
-      text-anchor="middle"
-      opacity={$tweenedStory4Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="315" dy="-4em">Although the earthquake itself may last for just a few</tspan>
-      <tspan x="315" dy="1.8em">minutes, the aftermath of an earthquake can be felt for</tspan>
-      <tspan x="315" dy="1.8em">weeks to years globally. Earthquakes can displace people from</tspan>
-      <tspan x="315" dy="1.8em">their homes and destroy livelihoods in an instant, ultimately</tspan>
-      <tspan x="315" dy="1.8em">impacting society, the economy, and climate. For example,</tspan>
-      <tspan x="315" dy="1.8em">the Great East Japan Earthquake in 2011 caused an economic</tspan>
-      <tspan x="315" dy="1.8em">loss of $360 billion alone. As such, repairing damages</tspan>
-      <tspan x="315" dy="1.8em">caused by earthquakes can be extremely costly.</tspan>
-    </text>
-
-    <rect 
-      width="460" 
-      height="390" 
-      x="610" 
-      y={$tweenedStory5Y - 120} 
-      rx="20" 
-      ry="20" 
-      fill="white" 
-      opacity={$tweenedStory5Opacity *6/7}
-    />
-
-    <text class = 'faultStory1'
-      x="5%"
-      y={$tweenedStory5Y}
-      text-anchor="middle"
-      opacity={$tweenedStory5Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="840" dy="-4em">How are these disastrous earthquakes formed?</tspan>
-      <tspan x="840" dy="1.8em">Earth’s crust consists of 7 major tectonic plates,</tspan>
-      <tspan x="840" dy="1.8em">each varying in size and location. When these plates</tspan>
-      <tspan x="840" dy="1.8em">move, the borders of the tectonic plates, also known</tspan>
-      <tspan x="840" dy="1.8em">as fault lines, occasionally touch each other, and</tspan>
-      <tspan x="840" dy="1.8em">these brief moments of interaction are what cause</tspan>
-      <tspan x="840" dy="1.8em">earthquakes. The friction from the plates touching</tspan>
-      <tspan x="840" dy="1.8em">creates energy, which is released as waves to Earth's</tspan>
-      <tspan x="840" dy="1.8em">surface. The amount of pressure that’s produced from</tspan>
-      <tspan x="840" dy="1.8em">the friction determines how strong the earthquake is.</tspan>
-    </text>
-
-    <rect 
-      width="480" 
-      height="290" 
-      x="80" 
-      y={$tweenedStory6Y - 120} 
-      rx="20" 
-      ry="20" 
-      fill="white" 
-      opacity={$tweenedStory6Opacity *6/7}
-    />
-
-    <text class = 'faultStory2'
-      x="10%"
-      y={$tweenedStory6Y}
-      text-anchor="middle"
-      opacity={$tweenedStory6Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="320" dy="-4em">Since earthquakes happen when tectonic plates touch,</tspan>
-      <tspan x="320" dy="1.8em">almost all earthquakes occur at fault lines. This</tspan>
-      <tspan x="320" dy="1.8em">map shows each earthquake as a circle on the map, and</tspan>
-      <tspan x="320" dy="1.8em">we can see that these earthquakes happen on Earth’s</tspan>
-      <tspan x="320" dy="1.8em">fault lines. A majority of earthquakes are so small</tspan>
-      <tspan x="320" dy="1.8em">that they go by undetected, but there are some powerful</tspan>
-      <tspan x="320" dy="1.8em">earthquakes, and these are represented by the red circles.</tspan>
-    </text>
-
-    <rect 
-      width="480" 
-      height="290" 
-      x="620" 
-      y={$tweenedStory7Y - 120} 
-      rx="20" 
-      ry="20" 
-      fill="white" 
-      opacity={$tweenedStory7Opacity *2/3}
-    />
-
-    <text class = 'ringFireStory'
-      x="90%"
-      y={$tweenedStory7Y}
-      text-anchor="middle"
-      opacity={$tweenedStory7Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="860" dy="-4em">Most of the earthquakes occur in a horseshoe-shaped</tspan>
-      <tspan x="860" dy="1.8em">path along the Pacific Ocean, and this region is referred</tspan>
-      <tspan x="860" dy="1.8em">to as the Ring of Fire. Due to high tectonic activity in</tspan>
-      <tspan x="860" dy="1.8em">this area, the Ring of Fire is where 90% of earthquakes</tspan>
-      <tspan x="860" dy="1.8em">and 75% of active volcanoes are located. Many major</tspan>
-      <tspan x="860" dy="1.8em">earthquakes that have shook our world to its core have</tspan>
-      <tspan x="860" dy="1.8em">happened in seismically active region. Here are a few: </tspan>
-    </text>
-
-    <rect 
-    width="550" 
-    height="340" 
-    x="30" 
-    y={$tweenedStory8Y - 110} 
-    rx="20" 
-    ry="20" 
-    fill="white" 
-    opacity={$tweenedStory8Opacity / 2}
-    />
-
-    <text class = 'earthquakeExample1'
-      x="10%"
-      y={$tweenedStory8Y}
-      text-anchor="middle"
-      opacity={$tweenedStory8Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="300" dy="-4em">In the 1960, Valdivia, Chile was rocked by the most powerful</tspan>
-      <tspan x="300" dy="1.8em">earthquake ever recorded. With an astonishing magnitude of 9.5,</tspan>
-      <tspan x="300" dy="1.8em">this earthquake is a testament of what the Ring of Fire is</tspan>
-      <tspan x="300" dy="1.8em">capable of creating. This earthquake was so powerful that it</tspan>
-      <tspan x="300" dy="1.8em">created a deadly tsunami that propagated out into the Pacific.</tspan>
-      <tspan x="300" dy="1.8em">The tsunami killed 1655 people, killing people as far away as</tspan>
-      <tspan x="300" dy="1.8em">Hawaii, Japan, and the Philippines. At the end, this quake</tspan>
-      <tspan x="300" dy="1.8em">injured 3000 people and caused $550 million in damages</tspan>
-      <tspan x="300" dy="1.8em">in southern Chile alone.</tspan>
-    </text>
-
-    <rect 
-    width="590" 
-    height="370" 
-    x="10" 
-    y={$tweenedStory9Y - 110} 
-    rx="20" 
-    ry="20" 
-    fill="white" 
-    opacity={$tweenedStory9Opacity / 2}
-    />
-
-    <text class = 'earthquakeExample2'
-      x="10%"
-      y={$tweenedStory9Y}
-      text-anchor="middle"
-      opacity={$tweenedStory9Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="310" dy="-4em">On March 11, 2011, Japan experienced the costliest earthquake</tspan>
-      <tspan x="310" dy="1.8em">in history. Japan experiences the most earthquakes per year due</tspan>
-      <tspan x="310" dy="1.8em">to its proximity to several tectonic plates, but this 9.1-magnitude</tspan>
-      <tspan x="310" dy="1.8em">earthquake was particularly significant due to the extensive damage</tspan>
-      <tspan x="310" dy="1.8em">it caused. The earthquake created a massive tsunami with waves up to</tspan>
-      <tspan x="310" dy="1.8em">132 feet, which wiped out homes and businesses in northeastern</tspan>
-      <tspan x="310" dy="1.8em">Japan. The tsunami also destroyed the Fukushima nuclear power plant</tspan>
-      <tspan x="310" dy="1.8em">and caused a radiation leak, which created an exclusion zone around</tspan>
-      <tspan x="310" dy="1.8em">that area that’s still in effect to this day. All of this resulted in over</tspan>
-      <tspan x="310" dy="1.8em">18,000 deaths and $235 billion in damages.</tspan>
-    </text>
-
-    <rect 
-    width="570" 
-    height="340" 
-    x="10" 
-    y={$tweenedStory10Y - 110} 
-    rx="20" 
-    ry="20" 
-    fill="white" 
-    opacity={$tweenedStory10Opacity / 2}
-    />
-
-    <text class = 'earthquakeExample3'
-      x="10%"
-      y={$tweenedStory10Y}
-      text-anchor="middle"
-      opacity={$tweenedStory10Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="300" dy="-4em">Although the death toll for the 2011 Japan earthquake was high,</tspan>
-      <tspan x="300" dy="1.8em">the record for the deadliest natural disaster in the 21st century</tspan>
-      <tspan x="300" dy="1.8em">belongs to the 2004 Indian Ocean earthquake. This 9.1-magnitude</tspan>
-      <tspan x="300" dy="1.8em">earthquake, which was centered off the west coast of northern</tspan>
-      <tspan x="300" dy="1.8em">Sumatra, Indonesia, created the most destructive tsunami in history,</tspan>
-      <tspan x="300" dy="1.8em">impacting 18 different countries. There were over 227,000 casualties</tspan>
-      <tspan x="300" dy="1.8em">and it left long-term environmental damage to the surrounding area.</tspan>
-      <tspan x="300" dy="1.8em">Many marine ecosystems suffered lasting damage, and freshwater</tspan>
-      <tspan x="300" dy="1.8em">supplies were polluted with waste and chemicals.</tspan>
-    </text>
-
-    <rect 
-    width="540" 
-    height="280" 
-    x="30" 
-    y={$tweenedStory11Y - 110} 
-    rx="20" 
-    ry="20" 
-    fill="white" 
-    opacity={$tweenedStory11Opacity / 2}
-    />
-
-    <text class = 'earthquakeExample4'
-      x="10%"
-      y={$tweenedStory11Y}
-      text-anchor="middle"
-      opacity={$tweenedStory11Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="300" dy="-4em">The last time California experienced a significant earthquake</tspan>
-      <tspan x="300" dy="1.8em">was the 7.9 magnitude San Francisco quake which happend over</tspan>
-      <tspan x="300" dy="1.8em">a century ago. This earthquake generated tsunamis, caused</tspan>
-      <tspan x="300" dy="1.8em">building collapses, and sparked fires that raged throughtout</tspan>
-      <tspan x="300" dy="1.8em">the whole city for several days. This event destroyed</tspan>
-      <tspan x="300" dy="1.8em">over 80% of San Francisco and as many as 3000 people died,</tspan>
-      <tspan x="300" dy="1.8em">making it the deadliest earthquake in US history.</tspan>
-    </text>
-
-    <rect 
-    width="550" 
-    height="360" 
-    x="40" 
-    y={$tweenedStory12Y - 120} 
-    rx="20" 
-    ry="20" 
-    fill="white" 
-    opacity={$tweenedStory12Opacity / 2}
-    />
-
-    <text class = 'takeaway1'
-      x="10%"
-      y={$tweenedStory12Y}
-      text-anchor="middle"
-      opacity={$tweenedStory12Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="320" dy="-4em">The San Andreas fault line runs through California,</tspan>
-      <tspan x="320" dy="1.8em">making our state very prown to earthquakes. Scarily </tspan>
-      <tspan x="320" dy="1.8em">enough, this fault line has not produced a massive earthquake</tspan>
-      <tspan x="320" dy="1.8em">in over 300 years. This is not at all good news because fault lines</tspan>
-      <tspan x="320" dy="1.8em">build up stress over time, meaning that when the fault does slip</tspan>
-      <tspan x="320" dy="1.8em">a huge amount of energy will be released in the form of an</tspan>
-      <tspan x="320" dy="1.8em">earthquake. Some studies estimate as high as a 60% chance of an</tspan>
-      <tspan x="320" dy="1.8em">earthquake with a 6.5-magnitude or stronger striking the </tspan>
-      <tspan x="320" dy="1.8em">Southern California region in the next 30 years.</tspan>
-    </text>
-
-    <rect 
-    width="510" 
-    height="350" 
-    x="30" 
-    y={$tweenedStory13Y - 110} 
-    rx="20" 
-    ry="20" 
-    fill="white" 
-    opacity={$tweenedStory13Opacity / 2}
-    />
-
-    <text class = 'takeaway2'
-      x="10%"
-      y={$tweenedStory13Y}
-      text-anchor="middle"
-      opacity={$tweenedStory13Opacity}
-      in:fly={{ y: -300, duration: 1000 }}
-      out:fly={{ y: -300, duration: 1000 }}
-    >
-      <tspan x="300" dy="-4em">Major earthquakes are silent killers because they rarely</tspan>
-      <tspan x="300" dy="1.8em">occur, but when they do, they cause millions in damage</tspan>
-      <tspan x="300" dy="1.8em">and thousands of deaths. Taking precautions from </tspan>
-      <tspan x="300" dy="1.8em">other regions hit by earthquakes in the Ring of Fire,</tspan>
-      <tspan x="300" dy="1.8em">it's important, now more than ever, to be prepared</tspan>
-      <tspan x="300" dy="1.8em">for the big one. Earthquake preparedness takes</tspan>
-      <tspan x="300" dy="1.8em">many forms, and can look like building retrofitting,</tspan>
-      <tspan x="300" dy="1.8em">practice drills, and education/awareness. A major</tspan>
-      <tspan x="300" dy="1.8em">California earthquake is not question of if, but when.</tspan>
-    </text>
   {/if}
 </svg>
 
@@ -645,6 +357,7 @@
   .title {
     font-size: 40px;
     font-weight: 500;
+    position: absolute;
   }
 
   .subtitle {
@@ -658,6 +371,7 @@
   .graph {
     width: 100%;
     height: 100%;
+    top: 0;
     position: absolute;
   }
 </style>
