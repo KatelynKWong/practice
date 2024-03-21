@@ -1,2 +1,2 @@
-# beantherebrewedthat
-A website for a food, travel, and caffeine blog
+# Bean There, Brewed That
+A repository for a food, travel, and caffeine blog
