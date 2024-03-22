@@ -37,6 +37,8 @@
   const headerOpacity = tweened(0, { duration: 400, easing: cubicOut });
   $: headerOpacity.set(index > 1 ? 1 : 0); // Adjusted condition to set opacity
 
+  const subSectionOpacity = tweened(0, { duration: 400, easing: cubicOut });
+  $: subSectionOpacity.set(index > 2 ? 1 : 0); // Adjusted condition to set opacity
 </script>
 
 
@@ -49,6 +51,31 @@
   </div>
   <div class="subtitle">
     <h1>A blog documenting the coffee and food journey of a study abroad student.</h1>
+  </div>
+
+  <div class="subSection"
+      style={`opacity: ${$subSectionOpacity};`} transition:fade>
+    <span style="position: fixed; 
+                top: 39vh; 
+                font-size: 35px;
+                left: 69%;"
+                >Tokyo Tales</span>
+    <span style="position: fixed; 
+                top: 45vh; 
+                left: 69%;
+                font-size: 20px">
+                Hitotsubashi University study abroad experience</span>
+    <span style="position: fixed; 
+                top: 85vh; 
+                font-size: 35px;
+                left: 69%;"
+                >Savory Stories</span>
+    <span style="position: fixed; 
+              top: 90vh; 
+              left: 69%;
+              font-size: 20px">
+              Food discoveries, favorite recipes, and more</span>              
+    
   </div>
   <div class="scrolling-rectangle1"></div>
   <div class="scrolling-rectangle2"></div>
@@ -159,6 +186,14 @@
     z-index: 999; /* Ensure the title stays above other content */
     transition: bottom 0.3s; /* Add smooth transition effect */
   }
+  .subSection {
+    position: fixed;
+    color: white;
+    z-index: 999;
+    font-weight: 300;
+    font-size: 35px;
+    transition: bottom 0.3s
+  }
 
   .scrolling-rectangle1 {
     position: fixed;
@@ -167,7 +202,7 @@
     width: 33%;
     height: 60vh;
     background-color: rgb(97, 130, 88);
-    z-index: 997; /* Ensure the rectangle stays on top of other content */
+    z-index: 994; /* Ensure the rectangle stays on top of other content */
     padding: 1px 0
   }
   .scrolling-rectangle2 {
@@ -177,7 +212,7 @@
     width: 33%;
     height: 50vh;
     background-color: rgb(205, 196, 143);
-    z-index: 997; /* Ensure the rectangle stays on top of other content */
+    z-index: 994; /* Ensure the rectangle stays on top of other content */
     padding: 1px 0
   }
 
@@ -224,6 +259,4 @@
     transform: translateX(-50%);
     z-index: 1;
 }
-
-
 </style>
