@@ -33,7 +33,7 @@
   tweenedRectOpacity.set(0)
   const tweenedStory3Opacity = tweened(0);
 
-  
+
   $: { // background story animations
     if (index === 2) {
       tweenedRectOpacity.set(0)
@@ -84,8 +84,8 @@
   {#if index > 0}
   <!-- intro text -->
   <rect 
-  width="520" 
-  height="320" 
+  width="555" 
+  height="305" 
   x="20%" 
   y="35%" 
   rx="20" 
@@ -102,15 +102,15 @@
   in:fly={{ y: -300, duration: 1000 }}
   out:fly={{ y: -300, duration: 1000 }}
 >
-  <tspan x="25%" dy="0%">About the blog ...</tspan>
-  <tspan x="25%" dy="1.8em">minutes, the aftermath of an earthquake can be felt for</tspan>
-  <tspan x="25%" dy="1.8em">weeks to years globally. Earthquakes can displace people from</tspan>
-  <tspan x="25%" dy="1.8em">their homes and destroy livelihoods in an instant, ultimately</tspan>
-  <tspan x="25%" dy="1.8em">impacting society, the economy, and climate. For example,</tspan>
-  <tspan x="25%" dy="1.8em">the Great East Japan Earthquake in 2011 caused an economic</tspan>
-  <tspan x="25%" dy="1.8em">loss of $360 billion alone. As such, repairing damages</tspan>
-  <tspan x="25%" dy="1.8em">caused by earthquakes can be extremely costly.</tspan>
+  <tspan x="25%" dy="0%">Hey there! </tspan>
+  <tspan x="25%" dy="1.8em">Welcome to my blog where I share my adventures as a study</tspan>
+  <tspan x="25%" dy="1.8em">abroad student in Japan. I'll mainly be focusing about</tspan>
+  <tspan x="25%" dy="1.8em"> student life, diving into Japan's coffee scene, and sharing</tspan>
+  <tspan x="25%" dy="1.8em">delicious food and drink experiences. If you want to learn</tspan>
+  <tspan x="25%" dy="1.8em">more, just click on the sections below to explore each topic.</tspan>
+  <tspan x="25%" dy="1.8em">Let's enjoy discovering more about Japan together! </tspan>
 </text>
+
 
     <rect class="grey-rectangle"
     width="100%"  
@@ -137,10 +137,10 @@
   </text>
 
   <rect 
-  width="520" 
-  height="320" 
-  x="20%" 
-  y="35%" 
+  width="580" 
+  height="470" 
+  x="15%" 
+  y="30%" 
   rx="20" 
   ry="20" 
   fill="white" 
@@ -155,17 +155,49 @@
   in:fly={{ y: -300, duration: 1000 }}
   out:fly={{ y: -300, duration: 1000 }}
 >
-  <tspan x="25%" dy="0%">About the author ...</tspan>
-  <tspan x="25%" dy="1.8em">minutes, the aftermath of an earthquake can be felt for</tspan>
-  <tspan x="25%" dy="1.8em">weeks to years globally. Earthquakes can displace people from</tspan>
-  <tspan x="25%" dy="1.8em">their homes and destroy livelihoods in an instant, ultimately</tspan>
-  <tspan x="25%" dy="1.8em">impacting society, the economy, and climate. For example,</tspan>
-  <tspan x="25%" dy="1.8em">the Great East Japan Earthquake in 2011 caused an economic</tspan>
-  <tspan x="25%" dy="1.8em">loss of $360 billion alone. As such, repairing damages</tspan>
-  <tspan x="25%" dy="1.8em">caused by earthquakes can be extremely costly.</tspan>
+  <tspan x="25%" dy="-5%" font-size="80%">Katelyn is currently a college student from UCSD studying economics</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">abroad at Hitotsubashi University in Kunitachi, Tokyo. Though</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">her current major is mathematics and economics, her passion lies in</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">data science and analysis. She is seeking to explore any interdiscplinary</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">field in the intersection between data science, math, and econ.</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">One of Katelyn's favorite things to do in her free time is experiment</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">with making espresso from coffee beans. Ever since she was gifted an</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">espresso maker, she has devoted much of her time into developing the</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">perfect espresso prep methods with her machine. In doing so, she hopes</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">to familiarize herself with the art of making coffee to ultimately</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">achieve her future goal of opening up a hybrid coffee shop/internet cafe</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">that focuses on traditional coffee while offering computer services</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">to customers. </tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">In addition to making coffee, Katelyn also enjoys playing music with </tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">friends and creating watercolor art pieces. If you are interested in </tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">checking out more of her art, coffee, and study abroad experiences,</tspan>
+  <tspan x="25%" dy="1.5em" font-size="80%">please visit @twicks and @crusteacats on Instagram. Thank you!</tspan>
 </text>
 
+<!-- Katelyn is currently a college student from UCSD
+studying economics abroad at Hitotsubashi University 
+in Kunitachi, Tokyo. Though her current major is
+mathematics and economics, her passion lies in data 
+science and analysis. She is seeking to explore any
+interdiscplinary field in the intersection between
+data science, math, and econ.
 
+One of Katelyn's favorite things to do in her free time
+is experiment with making espresso from coffee beans.
+Ever since she was gifted an espresso maker, she has
+devoted much of her time into developing the perfect 
+espresso prep methods with her machine. In doing so,
+she hopes to familiarize herself with the art of 
+making coffee to ultimately achieve her future goal of opening up
+a hybrid coffee shop/internet cafe that focuses on 
+traditional coffee while offering computer services to customers. 
+
+In addition to making coffee, Katelyn also enjoys 
+playing music with friends and creating watercolor art
+pieces. If you are interested in checking out more of her
+art, coffee, and study abroad experiences, please visit @twicks 
+and @crusteacats on Instagram. Thank you!
+-->
     <image class="tsunamiImage"
     x={-width*5/12} y="0" width="100%" height="100%"
     xlink:href={tsunamiImage}
